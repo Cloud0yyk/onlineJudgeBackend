@@ -45,12 +45,12 @@ public class CodeGenerator {
         String projectPath = System.getProperty("user.dir");
         // 参考路径，可以自己调整下面的 outputPath
         String inputPath = projectPath + File.separator + "src/main/resources/templates/模板名称.java.ftl";
-        String outputPath = String.format("%s/generator/包名/%s类后缀.java", projectPath, upperDataKey);
+        String outputPath = String.format("%s/com.yupi.yuoj.service.impl.generator/包名/%s类后缀.java", projectPath, upperDataKey);
 
         // 1、生成 Controller
         // 指定生成路径
         inputPath = projectPath + File.separator + "src/main/resources/templates/TemplateController.java.ftl";
-        outputPath = String.format("%s/generator/controller/%sController.java", projectPath, upperDataKey);
+        outputPath = String.format("%s/com.yupi.yuoj.service.impl.generator/controller/%sController.java", projectPath, upperDataKey);
         // 生成
         doGenerate(inputPath, outputPath, dataModel);
         System.out.println("生成 Controller 成功，文件路径：" + outputPath);
@@ -58,33 +58,33 @@ public class CodeGenerator {
         // 2、生成 Service 接口和实现类
         // 生成 Service 接口
         inputPath = projectPath + File.separator + "src/main/resources/templates/TemplateService.java.ftl";
-        outputPath = String.format("%s/generator/service/%sService.java", projectPath, upperDataKey);
+        outputPath = String.format("%s/com.yupi.yuoj.service.impl.generator/service/%sService.java", projectPath, upperDataKey);
         doGenerate(inputPath, outputPath, dataModel);
         System.out.println("生成 Service 接口成功，文件路径：" + outputPath);
         // 生成 Service 实现类
         inputPath = projectPath + File.separator + "src/main/resources/templates/TemplateServiceImpl.java.ftl";
-        outputPath = String.format("%s/generator/service/impl/%sServiceImpl.java", projectPath, upperDataKey);
+        outputPath = String.format("%s/com.yupi.yuoj.service.impl.generator/service/impl/%sServiceImpl.java", projectPath, upperDataKey);
         doGenerate(inputPath, outputPath, dataModel);
         System.out.println("生成 Service 实现类成功，文件路径：" + outputPath);
 
         // 3、生成数据模型封装类（包括 DTO 和 VO）
         // 生成 DTO
         inputPath = projectPath + File.separator + "src/main/resources/templates/model/TemplateAddRequest.java.ftl";
-        outputPath = String.format("%s/generator/model/dto/%sAddRequest.java", projectPath, upperDataKey);
+        outputPath = String.format("%s/com.yupi.yuoj.service.impl.generator/model/dto/%sAddRequest.java", projectPath, upperDataKey);
         doGenerate(inputPath, outputPath, dataModel);
         inputPath = projectPath + File.separator + "src/main/resources/templates/model/TemplateQueryRequest.java.ftl";
-        outputPath = String.format("%s/generator/model/dto/%sQueryRequest.java", projectPath, upperDataKey);
+        outputPath = String.format("%s/com.yupi.yuoj.service.impl.generator/model/dto/%sQueryRequest.java", projectPath, upperDataKey);
         doGenerate(inputPath, outputPath, dataModel);
         inputPath = projectPath + File.separator + "src/main/resources/templates/model/TemplateEditRequest.java.ftl";
-        outputPath = String.format("%s/generator/model/dto/%sEditRequest.java", projectPath, upperDataKey);
+        outputPath = String.format("%s/com.yupi.yuoj.service.impl.generator/model/dto/%sEditRequest.java", projectPath, upperDataKey);
         doGenerate(inputPath, outputPath, dataModel);
         inputPath = projectPath + File.separator + "src/main/resources/templates/model/TemplateUpdateRequest.java.ftl";
-        outputPath = String.format("%s/generator/model/dto/%sUpdateRequest.java", projectPath, upperDataKey);
+        outputPath = String.format("%s/com.yupi.yuoj.service.impl.generator/model/dto/%sUpdateRequest.java", projectPath, upperDataKey);
         doGenerate(inputPath, outputPath, dataModel);
         System.out.println("生成 DTO 成功，文件路径：" + outputPath);
         // 生成 VO
         inputPath = projectPath + File.separator + "src/main/resources/templates/model/TemplateVO.java.ftl";
-        outputPath = String.format("%s/generator/model/vo/%sVO.java", projectPath, upperDataKey);
+        outputPath = String.format("%s/com.yupi.yuoj.service.impl.generator/model/vo/%sVO.java", projectPath, upperDataKey);
         doGenerate(inputPath, outputPath, dataModel);
         System.out.println("生成 VO 成功，文件路径：" + outputPath);
     }
