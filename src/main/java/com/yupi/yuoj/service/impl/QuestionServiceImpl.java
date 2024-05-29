@@ -10,6 +10,7 @@ import com.yupi.yuoj.exception.BusinessException;
 import com.yupi.yuoj.exception.ThrowUtils;
 import com.yupi.yuoj.mapper.QuestionFavourMapper;
 import com.yupi.yuoj.mapper.QuestionThumbMapper;
+import com.yupi.yuoj.model.dto.question.JudgeCase;
 import com.yupi.yuoj.model.dto.question.QuestionEsDTO;
 import com.yupi.yuoj.model.dto.question.QuestionQueryRequest;
 import com.yupi.yuoj.model.entity.*;
@@ -56,17 +57,24 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
     @Resource
     private QuestionFavourMapper questionFavourMapper;
 
-    @Resource
-    private ElasticsearchRestTemplate elasticsearchRestTemplate;
+    /**
+     * 校验题目是否合法
+     * @para question
+     * @para add
+     */
 
     @Override
     public void validQuestion(Question question, boolean add) {
         if (question == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
+
         String title = question.getTitle();
         String content = question.getContent();
         String tags = question.getTags();
+        String answer = question.getAnswer();
+        String judgeCase = question.getJudgeCase();
+        String judgeConfig = question.getJudgeConfig();
         // 创建时，参数不能为空
         if (add) {
             ThrowUtils.throwIf(StringUtils.isAnyBlank(title, content, tags), ErrorCode.PARAMS_ERROR);
@@ -78,12 +86,22 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
         if (StringUtils.isNotBlank(content) && content.length() > 8192) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "内容过长");
         }
+
+        if (StringUtils.isNotBlank(answer) && answer.length() > 8192) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "答案过长");
+        }
+        if (StringUtils.isNotBlank(judgeCase) && judgeCase.length() > 8192) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "判题用例过长");
+        }
+        if (StringUtils.isNotBlank(judgeConfig) && judgeConfig.length() > 8192) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "判题配置过长");
+        }
     }
 
     /**
      * 获取查询包装类
      *
-     * @param questionQueryRequest
+     * @param questionQueryRequest（用户根据哪些字段查询，根据前端传来的请求对象，得到mybatis框架支持的查询QueryWrapper类）
      * @return
      */
     @Override
