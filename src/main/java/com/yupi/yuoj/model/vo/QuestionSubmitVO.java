@@ -8,7 +8,7 @@ import org.springframework.beans.BeanUtils;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.yupi.yuoj.model.dto.questionsubmit.JudgeInfo;
+import com.yupi.yuoj.judge.codesandbox.model.JudgeInfo;
 
 /**
  * 题目提交封装类
